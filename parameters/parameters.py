@@ -68,7 +68,7 @@ def get_simulation_model_kwargs(n_dipoles, snr):
 
     kwargs = {'l_freq': 5.0, 'h_freq': 40.0, 'phase': 'zero', 'fir_window':'hamming',
                          'reject': {'grad': 4000e-13, 'mag': 5e-12, 'eog': 150e-6},
-                         'channel_types': {'meg': True, 'eeg': True, 'stim': True, 'eog': True},
+                         'channel_types': {'meg': True, 'eeg': False, 'stim': False, 'eog': False},
                          'cov': 'simple', 'iir_filter': None, 'fir_design': 'firwin', 'ecg': True, 'blink': True,
                          'n_simulations': 3000, 'n_dipoles': n_dipoles, 'samples_per_dipole': 20, 'use_cps': True,
                          'verbose': True, 'loose': 0.2, 'depth': 0.8, 'lambda2': 1./ snr ** 2}
@@ -97,7 +97,7 @@ def get_optimizer_kwargs(optimizer):
     :return: 
     """
     if optimizer == "momentum":
-        kwargs = {"learning_rate": 0.02, "decay_rate": 0.95, "momentum": 0.9}  # Orig moment 0.2
+        kwargs = {"learning_rate": 0.04, "decay_rate": 0.95, "momentum": 0.9}  # Orig moment 0.2
     elif optimizer == "adam":
         kwargs = {"learning_rate": 0.01}
     elif optimizer == "adagrad":

@@ -9,30 +9,35 @@ import math
 
 def visualize_dle_colormaps(data, src, colormap='hot', smoothing_steps=50):
 
-    mne_dle = sloreta_dle = dspm_dle = nn_dle = np.array([])
-    mne_sd = sloreta_sd = dspm_sd = nn_sd = np.array([])
-    mne_oa = sloreta_oa = dspm_oa = nn_oa = np.array([])
+    mne_dle, sloreta_dle, dspm_dle, nn_dle = np.array([]), np.array([]), np.array([]), np.array([])
+    mne_sd, sloreta_sd, dspm_sd, nn_sd = np.array([]), np.array([]), np.array([]), np.array([])
+    mne_oa, sloreta_oa, dspm_oa, nn_oa = np.array([]), np.array([]), np.array([]), np.array([])
 
     if HEMISPHERE == 'rh':
         hemi = 1
     else:
         hemi = 0
 
-    offset = len(CHANNELS) + len(GROUND_TRUTH) + 1
+    offset = len(CHANNELS) + len(GROUND_TRUTH) + 1  # 5
+    diff = len(CHANNELS) + len(GROUND_TRUTH)
 
     ground_truth_verts = map(int, list(data[:, 0]))
+
     unique_verts = sorted(set(ground_truth_verts))
+
+    print(unique_verts)
 
     for c in range(0, len(CHANNELS)):
         avgs_dle = np.zeros(max(unique_verts) + 1)
         avgs_sd = np.zeros(max(unique_verts) + 1)
         avgs_oa = np.zeros(max(unique_verts) + 1)
         counts = np.zeros(max(unique_verts) + 1)
-        for v in ground_truth_verts:
-            avgs_dle[v] += data[v, c + offset]
-            avgs_sd[v] += data[v, c + 2 * offset - 1]
-            avgs_oa[v] += data[v, c + 3 * offset - 1]
-            counts[v] += 1
+        for d in range(0, data.shape[0]):
+            vert = int(data[d, 0])
+            avgs_dle[vert] += data[d, offset + c]
+            avgs_sd[vert] += data[d, offset + c + diff]
+            avgs_oa[vert] += data[d, offset + c + 2 * diff]
+            counts[vert] += 1
         avgs_dle = avgs_dle[counts != 0] * 100
         avgs_sd = avgs_sd[counts != 0] * 100
         avgs_oa = avgs_oa[counts != 0]
@@ -46,6 +51,7 @@ def visualize_dle_colormaps(data, src, colormap='hot', smoothing_steps=50):
             sloreta_dle = np.true_divide(avgs_dle, counts)
             sloreta_sd = np.true_divide(avgs_sd, counts)
             sloreta_oa = np.true_divide(avgs_oa, counts)
+
         elif CHANNELS[c] == 'dspm':
             dspm_dle = np.true_divide(avgs_dle, counts)
             dspm_sd = np.true_divide(avgs_sd, counts)
@@ -58,11 +64,12 @@ def visualize_dle_colormaps(data, src, colormap='hot', smoothing_steps=50):
         avgs_sd = np.zeros(max(unique_verts) + 1)
         avgs_oa = np.zeros(max(unique_verts) + 1)
         counts = np.zeros(max(unique_verts) + 1)
-        for v in ground_truth_verts:
-            avgs_dle[v] += data[v, g + offset + len(CHANNELS)]
-            avgs_sd[v] += data[v, g + 2 * offset - 1 + len(CHANNELS) - 1]
-            avgs_oa[v] += data[v, g + 3 * offset - 1 + len(CHANNELS) - 1]
-            counts[v] += 1
+        for d in range(0, data.shape[0]):
+            vert = int(data[d, 0])
+            avgs_dle[vert] += data[d, offset + g + len(CHANNELS)]
+            avgs_sd[vert] += data[d, offset + g + len(CHANNELS) + diff]
+            avgs_oa[vert] += data[d, offset + g + len(CHANNELS) + 2 * diff]
+            counts[vert] += 1
         avgs_dle = avgs_dle[counts != 0] * 100
         avgs_sd = avgs_sd[counts != 0] * 100
         avgs_oa = avgs_oa[counts != 0]
@@ -73,6 +80,7 @@ def visualize_dle_colormaps(data, src, colormap='hot', smoothing_steps=50):
             nn_oa = np.true_divide(avgs_oa, counts)
 
     ground_truth_verts = np.where(src[hemi]['inuse'])[0][unique_verts]
+    print(ground_truth_verts)
 
     maxv_dle = math.ceil(max(mne_dle.max(), sloreta_dle.max(), dspm_dle.max(), nn_dle.max()))
     maxv_sd = math.ceil(max(mne_sd.max(), sloreta_sd.max(), dspm_sd.max(), nn_sd.max()))
@@ -94,6 +102,7 @@ def visualize_dle_colormaps(data, src, colormap='hot', smoothing_steps=50):
     print(dspm_dle.sum() / len(dspm_dle))
     print(nn_dle)
     print(nn_dle.sum() / len(nn_dle))
+    print(len(mne_dle))
 
     for c in CHANNELS:
         brain = Brain(SUBJECT_NAME, HEMISPHERE, 'inflated', subjects_dir=SUBJECTS_DIR)

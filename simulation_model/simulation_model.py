@@ -361,13 +361,13 @@ class SimulationModel(object):
                 #lh_labels2.values[rh] = 1.
                 rh_labels2 = rh_labels
                 rh_labels2.values[rh] = 1.
-                sim_stc2 = simulate_sparse_stc(self.src, n_dipoles=1, times=times[t:t+self.times_per_dipole],
+                sim_stc2 = simulate_sparse_stc(self.src, n_dipoles=1, times=times[s:s+self.times_per_dipole],
                                                data_fun=self.data_func, labels=[rh_labels2])
                 # TODO: use labels for deterministically simulating all vertices
                 sim_stc.expand(sim_stc2.vertices), sim_stc2.expand(sim_stc.vertices), template.expand(sim_stc2.vertices)
-                template.data[:, :] = expand_sim_stc_data(times, t, sim_stc2.data, self.times_per_dipole)
+                template.data[:, :] = expand_sim_stc_data(times, s, sim_stc2.data, self.times_per_dipole)
                 sim_stc += template
-                t += self.times_per_dipole
+                s += self.times_per_dipole
 
         else:
             print("Simulating up to %s dipoles on the right hemisphere." % self.n_dipoles)

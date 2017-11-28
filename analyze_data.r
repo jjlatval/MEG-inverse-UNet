@@ -25,14 +25,16 @@ sink()
 
 sink("summary_table.txt")
 t <- stargazer(data[,6:13]*100)
+t2 <- stargazer(data[,14:17])
 print(t)
+print(t2)
 sink()
 
 dle <- boxplot(data[, 6:9]*100, ylab="DLE (cm)", names=c("MNE", "sLORETA", "dSPM", "U-Net"))
 
 sd <- boxplot(data[, 10:13]*100, ylab=expression(SD ~ sqrt(cm)), names=c("MNE", "sLORETA", "dSPM", "U-Net"))
 
-oa <- boxplot(data[, 14:17]*100, ylab="amplitude", names=c("MNE", "sLORETA", "dSPM", "U-Net"))
+oa <- boxplot(data[, 14:17], ylab="amplitude", names=c("MNE", "sLORETA", "dSPM", "U-Net"))
 
 dens1 <- density(data[, 6]*100)
 dens2 <- density(data[, 7]*100)
@@ -42,10 +44,10 @@ sd1 <- density(data[,10]*100)
 sd2 <- density(data[,11]*100)
 sd3 <- density(data[,12]*100)
 sd4 <- density(data[,13]*100)
-oa1 <- density(data[,14]*100)
-oa2 <- density(data[,15]*100)
-oa3 <- density(data[,16]*100)
-oa4 <- density(data[,17]*100)
+oa1 <- density(data[,14])
+oa2 <- density(data[,15])
+oa3 <- density(data[,16])
+oa4 <- density(data[,17])
 
 par(mfrow=c(2,2))
 
@@ -84,7 +86,15 @@ corr1 <- rcorr(as.matrix(data[,6:9]))
 corr2 <- rcorr(as.matrix(data[,10:13]))
 corr3 <- rcorr(as.matrix(data[,14:17]))
 
+# Spearman correlations
+corr4 <- rcorr(as.matrix(data[,6:9]), type=c("spearman"))
+corr5 <- rcorr(as.matrix(data[,10:13]), type=c("spearman"))
+corr6 <- rcorr(as.matrix(data[,14:17]), type=c("spearman"))
+
 print(corr1)
 print(corr2)
 print(corr3)
+print(corr4)
+print(corr5)
+print(corr6)
 sink()

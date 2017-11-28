@@ -17,15 +17,12 @@ def main():
         n_tests = N_DIPOLES * samples
 
 
-
-
-
     print("Training neural network model for hemisphere: %s" % HEMISPHERE)
 
     if NETWORK_TYPE == 'unet':
         net = NetworkCaller(HEMISPHERE)
         weight_path = join(WEIGHT_PATH, 'model.cpkt')
-        net.predict(weights=weight_path, n_tests=112)
+        net.predict(weights=weight_path, n_tests=45)
 
     else:
         raise ValueError("Network type %s not understood" % NETWORK_TYPE)
