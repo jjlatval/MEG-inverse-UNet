@@ -51,7 +51,7 @@ RAW_EMPTY_ROOM_PATH = None
 EMPTY_SIGNAL = 0.5  # Proportion of empty signal in addition to simulated data
 SNR = 1.0
 N_DIPOLES = 1  # If N_DIPOLES = 1
-# then the simulation model will trigger a mode where it simulates each individual
+# then only one hemisphere (left hemisphere) gets simulated.
 
 SIMULATION_MODEL_KWARGS = get_simulation_model_kwargs(N_DIPOLES, SNR)
 SIMULATION_MODEL_CONFIG = join(SIMULATION_MODEL_PATH, 'config.ini')
@@ -67,8 +67,7 @@ TRAINING_DATA_PROCESSING , TARGET_DATA_PROCESSING = get_data_provider_kwargs()
 #############################
 
 # Basic network parameters
-NETWORK_TYPE = 'unet'  # Supported network types: 'unet', '1dcnn', 'lstm' or 'seq2seq'
-# NOTE: Running the network for predicting is only supported in unet at this moment
+NETWORK_TYPE = 'unet'  # Supported network types: 'unet'
 
 BATCH_SIZE = 642  # Batch size for neural network training.
 
@@ -80,8 +79,7 @@ HEMISPHERE = 'rh'  # Available options: 'lh', 'rh, or 'both'
 N_CLASSES = 2  # The number of classes for convolutional network
 # NOTE: if N_CLASSES==2 then absolute values of ground truth will be used
 # CLASS_WEIGHTS = [0.998, 0.112]
-CLASS_WEIGHTS = [0.99925, 0.00075] # [0.00077803738317757005, 0.99844236760124616, 0.00077959501557632398]  # You can pre-calculate these by
-# running class_imbalance.py
+CLASS_WEIGHTS = [0.99925, 0.00075] # You can pre-calculate these by running class_imbalance.py
 
 # Neural network activation, cost and gradient optimizers.
 ACTIVATION_TYPE = 'relu'  # Available ptions: 'sigmoid', 'tanh', 'softmax', 'relu'. Will default to 'relu'
