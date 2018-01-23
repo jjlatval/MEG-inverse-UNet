@@ -10,7 +10,7 @@ I am aware that there are most likely way more efficient ways of addressing the 
 * Ubuntu or MacOS (64 bit)
     * Tested on Ubuntu 16.04 LTS (x86_64) and MacOS Sierra (x86_64)
     * x86_64 architecture required for GPU acceleration with cuDNN
-* Python 2.7+/3.6+ (Anaconda2/3 recommended)
+* Python 2.7+/3.6+ (or Anaconda2/3)
 * pip: `https://pip.pypa.io/en/stable/installing/`
 * virtualenv: `sudo pip install virtualenv`
 * At least 100 GB of free disk space
