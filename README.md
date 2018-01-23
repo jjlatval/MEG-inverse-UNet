@@ -1,7 +1,9 @@
 ## MEG inverse problem U-net estimator
 
 This repository contains a neural network model capable of estimating the MEG inverse problem
-with a modified U-net convolutional network (see: https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/) by using L2 MNE, sLORETA, dSPM and/or raw sensor data as input
+with a modified U-net convolutional network (see: https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/) by using L2 MNE, sLORETA, dSPM and/or raw sensor data as input. This repository is the tool I used when writing my thesis on improving the L2 minimum norm based solutions by "post-processing" them with a neural network. My thesis can be found here: http://urn.fi/URN:NBN:fi:aalto-201712188173
+
+I am aware that there are most likely way more efficient ways of addressing the MEG inverse problem with a neural network. If I had to start again from scratch, I would most likely try to find a regression model that would converge (numerous LSTMs were tested during development). Anyway, have fun with the repository!
 
 #### General Requirements
 
@@ -11,7 +13,7 @@ with a modified U-net convolutional network (see: https://lmb.informatik.uni-fre
 * Python 2.7+/3.6+ (Anaconda2/3 recommended)
 * pip: `https://pip.pypa.io/en/stable/installing/`
 * virtualenv: `sudo pip install virtualenv`
-* At least 50 GB of free disk space
+* At least 100 GB of free disk space
 * Powerful enough PC
     * CUDA Compute 3.0 capable NVidia GPU with the latest drivers if you use GPU for training (highly recommended)
         * cuDNN 5.1 is needed. A newer version does not seem to work with the newest Tensorflow
@@ -24,10 +26,9 @@ with a modified U-net convolutional network (see: https://lmb.informatik.uni-fre
         * RAM: 32 GB
         * GPU: NVidia Geforce 1080 Ti
         * Training the U-Net with ico3 subdivision takes 235 epochs and roughly 30 hours with this setup
-
             
 ## TODO: guide for building Tensorflow with SSE4.2 and AVX for CPU users
-        
+
 #### MacOS Prerequisite steps:
 
 1. Install homebrew: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
@@ -47,7 +48,7 @@ with a modified U-net convolutional network (see: https://lmb.informatik.uni-fre
         1. Install MacOS prerequisites without CUDA: `bash install_scripts/mac_prerequisites.sh`
 6. Define matplotlib backend renderer. Add "backend: TkAgg" to ~/.matplotlib/matplotlibrc: `echo "backend: TkAgg" >> ~/.matplotlib/matplotlibrc`
     
-######Note: Tensorflow does not support GPU acceleration on MacOS from version 1.2 onwards
+###### Note: Tensorflow does not support GPU acceleration on MacOS from version 1.2 onwards
 * It seems that training the network works perfectly with using tensorflow-gpu==1.1.0 whereas predicing with the network and running Tensorboard does not work in MacOS with tensorflow-gpu. You can use tensorflow-gpu for training and `pip install tensorflow` when you need to predict with the network or use Tensorboard.
 * Another solution is to have two virtualenvironments: one for tensorflow-gpu and one for tensorflow
 
@@ -72,11 +73,10 @@ with a modified U-net convolutional network (see: https://lmb.informatik.uni-fre
     * NOTE: installing requirements may take a while. Especially when PySide builds Qt in the background.
 4. Install Tensorflow Unet: `bash install_tf_unet.sh`
 5. Run the network:
-    1. (OPTION 1) Simulate data and train the network yourself
+    1. Simulate data and train the network yourself
         1. Configure config.py parameters to suit your computing resources and research needs
         2. Create training, validation and testing datasets: `python simulate_data.py`
         3. Train the network: `python train_network.py`
-    2. (OPTION 2) Download pre-trained network with simulated data (LINK)
 
 #### Testing and visualizing
 
@@ -90,9 +90,10 @@ Diagnostics folder contains some scripts for testing the generated dataset. Thes
 
 #### Contribution guidelines ###
 
-* This is an open source project, so anyone can contribute. Right now help is needed with:
+* Anyone can contribute. Right now help is needed with:
     * Writing tests
     * Code review
+* I update the repository when issues emerge. Note that the quality of the newer code is worse due to DL pressures. I am not actively developing this repository further but may do so if the codebase is actually used for something useful. There is some old code as well as TODO markets. If you want, you can improve the codebase. You are free to create pull requests for fixing issues, and I will gladly review them.
 
 #### Any questions? ###
 
@@ -100,7 +101,9 @@ Diagnostics folder contains some scripts for testing the generated dataset. Thes
 
 #### Credits
 
+* The codebase is heavily based on MNE-Python, so big thanks to you developers
 * The Unet model is based on tf_unet by Joel Akeret (https://media.readthedocs.org/pdf/tf-unet/latest/tf-unet.pdf)
+
 
 
 
