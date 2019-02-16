@@ -68,7 +68,8 @@ I am aware that there are most likely way more efficient ways of addressing the 
 2. Install FreeSurfer and setup its environment variables: (https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall) (needed for visualization)
 3. Install requirements in your virtualenv: `pip install -r gpu-requirements.txt` OR `pip install -r requirements.txt` for non-GPU usage
     * For Python 3 `pip3 install -r gpu-requirements.txt` OR `pip3 install -r requirements.txt`
-    * NOTE: installing requirements may take a while. Especially when PySide builds Qt in the background.
+    * Install additional Python version specific requirements depending on your Python version: `pip install -r py2_requirements.txt` or `pip3 install -r py3_requirements.txt` (Qt bindings)
+    * NOTE: installing Python version specific requirements may take a while. Especially when PySide builds Qt in the background.
 4. Install Tensorflow Unet: `bash install_tf_unet.sh`
 5. Run the network:
     1. Simulate data and train the network yourself
