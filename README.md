@@ -26,8 +26,6 @@ I am aware that there are most likely way more efficient ways of addressing the 
         * RAM: 32 GB
         * GPU: NVidia Geforce 1080 Ti
         * Training the U-Net with ico3 subdivision takes 235 epochs and roughly 30 hours with this setup
-            
-## TODO: guide for building Tensorflow with SSE4.2 and AVX for CPU users
 
 #### MacOS Prerequisite steps:
 
@@ -103,7 +101,3 @@ Diagnostics folder contains some scripts for testing the generated dataset. Thes
 
 * The codebase is heavily based on MNE-Python, so big thanks to you developers
 * The Unet model is based on tf_unet by Joel Akeret (https://media.readthedocs.org/pdf/tf-unet/latest/tf-unet.pdf)
-
-
-
-

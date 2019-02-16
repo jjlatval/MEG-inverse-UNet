@@ -1,6 +1,6 @@
 from __future__ import division, print_function, unicode_literals
-import numpy as np
 from future.builtins import object
+import numpy as np
 from os.path import join
 from config import N_EPOCHS, WEIGHT_PATH, BATCH_SIZE, SPACING, OPTIMIZER, COST_FUNCTION, \
     CLASS_WEIGHTS, OPTIMIZER_KWARGS, N_CLASSES, RESIDUAL_LEARNING, ZERO_PADDING, REGULARIZATION_KWARGS, NN_TESTS_DIR, \
@@ -35,6 +35,7 @@ class NetworkCaller(object):
         self.optimizer_kwargs = optimizer_kwargs
         self.n_classes = n_classes
         self.n_dipoles = n_dipoles
+        self.weights = None
         if class_weights:
             if len(class_weights) == self.n_classes:
                 self.class_weights = class_weights
@@ -96,7 +97,8 @@ class NetworkCaller(object):
     def resume_training(self):
         print("Resuming network training")
         self.weights = self.trainer.train(self.data_provider, self.validation_provider, self.output_path,
-                           training_iters=self.training_iters, epochs=self.epochs, dropout=self.dropout, restore=True)
+                                          training_iters=self.training_iters, epochs=self.epochs,
+                                          dropout=self.dropout, restore=True)
 
     def predict(self, weights=None, n_tests=10, delimiter=str(",")):
         weights = weights or self.weights
@@ -137,7 +139,7 @@ class NetworkCaller(object):
         header = delimiter.join(header)
         if self.n_dipoles == 1:
             np.savetxt(join(self.tests_save_dir, "results.csv"), final_results, fmt=str("%8f"), header=header,
-                   delimiter=delimiter)
+                       delimiter=delimiter)
         else:
             np.savetxt(join(self.tests_save_dir, "results.csv"), final_results, fmt=str("%s"), header=header,
-                   delimiter=delimiter)
+                       delimiter=delimiter)

@@ -71,7 +71,7 @@ def get_simulation_model_kwargs(n_dipoles, snr):
                          'channel_types': {'meg': True, 'eeg': False, 'stim': False, 'eog': False},
                          'cov': 'simple', 'iir_filter': None, 'fir_design': 'firwin', 'ecg': True, 'blink': True,
                          'n_simulations': 3000, 'n_dipoles': n_dipoles, 'samples_per_dipole': 20, 'use_cps': True,
-                         'verbose': True, 'loose': 0.2, 'depth': 0.8, 'lambda2': 1./ snr ** 2}
+                         'verbose': True, 'loose': 0.2, 'depth': 0.8, 'lambda2': 1. / snr ** 2}
     # Now max freq set to 10Hz
     # Leave samples_per_dipole > 10! TODO: implement frequency range here with Nyquist Shannon Sampling theory
     return kwargs

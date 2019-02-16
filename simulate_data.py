@@ -9,5 +9,6 @@ def main():
     sim = SimulationModel(**SIMULATION_MODEL_KWARGS)
     sim.save_simulated_data()
 
+
 if __name__ == "__main__":
     main()

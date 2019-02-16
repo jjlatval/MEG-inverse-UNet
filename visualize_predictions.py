@@ -7,6 +7,7 @@ from mayavi import mlab
 from surfer import Brain
 import math
 
+
 def visualize_dle_colormaps(data, src, colormap='hot', smoothing_steps=50):
 
     mne_dle, sloreta_dle, dspm_dle, nn_dle = np.array([]), np.array([]), np.array([]), np.array([])

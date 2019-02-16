@@ -17,5 +17,6 @@ def main():
     else:
         raise ValueError("Network type %s not understood" % NETWORK_TYPE)
 
+
 if __name__ == "__main__":
     main()

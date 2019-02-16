@@ -269,7 +269,7 @@ class SimulationModel(object):
                    fir_design=self.fir_design)
 
         # Add EEG reference
-        raw.set_eeg_reference()
+        raw.set_eeg_reference(projection=True)
 
         # TODO: some mechanism to control this
         if use_ica:
