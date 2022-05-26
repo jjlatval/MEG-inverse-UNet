@@ -75,7 +75,7 @@ six==1.11.0
 statistics==1.0.3.5
 subprocess32==3.5.3
 tensorboard==1.12.2
-tensorflow-gpu==1.15.2
+tensorflow-gpu==2.7.2
 tensorflow-tensorboard==0.1.8
 termcolor==1.1.0
 texttable==0.9.1
