@@ -9,7 +9,7 @@ backports.weakref==1.0.post1
 bleach==3.1.4
 bz2file==0.98
 cached-property==1.4.3
-certifi==2018.8.24
+certifi==2022.12.7
 chardet==3.0.4
 configobj==5.0.6
 cxxtest==4.4
